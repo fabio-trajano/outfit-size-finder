@@ -1,4 +1,6 @@
 import pandas as pd
+import numpy as np
+import json
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.linear_model import LogisticRegression
@@ -7,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.metrics import classification_report
 import joblib
 
-def train_model(data_path="data/generated_data.csv", model_path="machine_learning/models/model.pkl"):
+def train_model(data_path="data/generated_data.csv", model_path="machine_learning/models/model.pkl", metrics_path="machine_learning/models/metrics.json"):
     df = pd.read_csv(data_path)
 
     # Features and label
@@ -30,9 +32,13 @@ def train_model(data_path="data/generated_data.csv", model_path="machine_learnin
     # Save the model
     joblib.dump(model, model_path)
 
-    # Evaluate
+    # Evaluate and save metrics
     y_pred = model.predict(X_test)
-    print(classification_report(y_test, y_pred))
+    metrics = classification_report(y_test, y_pred, output_dict=True)
+    with open(metrics_path, "w") as f:
+        json.dump(metrics, f)
+
+    print("Model trained and metrics saved.")
 
 if __name__ == "__main__":
     train_model()
