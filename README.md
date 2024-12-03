@@ -2,6 +2,9 @@
 
 A machine learning-powered API to predict clothing sizes based on user input features like height, weight, preference, age, and body shape. The project uses **Python**, **Scikit-learn**, **Django**, and **Django REST Framework**.
 
+***The model is trained using synthetic data to simulate a scenarios for portfolio purposes and is not suitable for real application usage.***
+
+
 ---
 
 ## **Features**
